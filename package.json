@@ -13,7 +13,7 @@
     "lint": "eslint --cache",
     "lint:fix": "eslint --cache --fix",
     "lint:type-check": "tsc --noEmit",
-    "format": "prettier --write --fix --cache --ignore-unknown .",
+    "format": "prettier --write --ignore-unknown .",
     "build": "pnpm clean && NODE_ENV=production tsc",
     "build:stag": "pnpm clean && NODE_ENV=staging tsc",
     "build:dev": "pnpm clean && NODE_ENV=dev tsc",
