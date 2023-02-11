@@ -1,6 +1,6 @@
 import Koa from 'koa'
 import initCore from './app'
-import siteConfig from './config/siteConfig'
+import siteConfig from './configs/siteConfig'
 import moduleAlias from 'module-alias'
 import * as dotenv from 'dotenv'
 import { DEFAULT_PORT } from './utils/constants'
