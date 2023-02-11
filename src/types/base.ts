@@ -15,12 +15,13 @@ export const defaultErrorObject: ErrorObject = { name: 'Error', message: 'Reques
 
 export type MiddlewareFn = (app: Koa) => void
 
-export type ParsedUrlQueryParams = string | string[]
-
 // Koa Context Data Type
 export type BaseContext = Koa.Context
 
 export type Context = BaseContext & RouterContext
+
+// Request Data Type
+export type ParsedUrlQueryParams = string | string[]
 
 // Response Data Type
 export type BaseResponseData = AnyObject
