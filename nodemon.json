@@ -1,0 +1,7 @@
+{
+  "verbose": true,
+  "watch": ["src"],
+  "exec": "pnpm run serve",
+  "ext": "ts",
+  "delay": 2500
+}

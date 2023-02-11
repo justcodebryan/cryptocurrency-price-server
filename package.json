@@ -1,0 +1,75 @@
+{
+  "name": "koa-temp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": ">= 16.17.0"
+  },
+  "scripts": {
+    "dev": "nodemon --config ./nodemon.json",
+    "serve": "NODE_ENV=development ts-node src/index.ts",
+    "start": "NODE_ENV=production node ./dist/index.js",
+    "lint": "eslint --cache",
+    "lint:fix": "eslint --cache --fix",
+    "lint:type-check": "tsc --noEmit",
+    "format": "prettier --write --fix --cache --ignore-unknown .",
+    "build": "pnpm clean && NODE_ENV=production tsc",
+    "build:stag": "pnpm clean && NODE_ENV=staging tsc",
+    "build:dev": "pnpm clean && NODE_ENV=dev tsc",
+    "clean": "rimraf dist",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "koa": "^2.14.1",
+    "koa-bodyparser": "^4.3.0",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^12.0.0",
+    "koa2-cors": "^2.0.6",
+    "module-alias": "^2.2.2",
+    "mysql2": "^3.0.1",
+    "rimraf": "^4.1.1",
+    "sequelize": "^6.28.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
+    "@types/koa": "^2.13.5",
+    "@types/koa-bodyparser": "^4.3.10",
+    "@types/koa-router": "^7.4.4",
+    "@types/koa2-cors": "^2.0.2",
+    "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
+    "eslint": "^8.32.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.0",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  },
+  "resolutions": {
+    "@types/koa": "^2.13.5"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{ts,js}": "pnpm lint:fix",
+    "**/*.{ts,js,json}": "pnpm format"
+  },
+  "_moduleAliases": {
+    "@": "src"
+  }
+}
