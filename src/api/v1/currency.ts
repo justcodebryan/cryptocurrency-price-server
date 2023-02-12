@@ -1,11 +1,10 @@
+import * as CurrencyController from '@/controllers/currency'
 import Router from 'koa-router'
 
 const router = new Router({
   prefix: '/currency',
 })
 
-router.get('/', async (ctx) => {
-  console.log('Hello currency')
-})
+router.get('/', CurrencyController.getUserList)
 
 export default router

@@ -20,6 +20,10 @@ export const getUserList = async (ctx: Context) => {
 
   const result = await service.getCurrencyList(pagination.startIndex, pagination.endIndex)
 
+  const redisRes = await service.getCurrencyTest()
+
+  console.log(redisRes)
+
   ctx.body = resolver.success({
     items: result,
     total,

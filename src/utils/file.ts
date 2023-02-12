@@ -1,3 +1,17 @@
+/**
+ * 判断某个文件夹是否存在
+ * @param path
+ * @returns {boolean}
+ */
+export function isDirectory(path: string): boolean {
+  try {
+    const stat = fs.statSync(path)
+    return stat.isDirectory()
+  } catch (error) {
+    return false
+  }
+}
+
 import fs from 'fs'
 import path from 'path'
 /**
