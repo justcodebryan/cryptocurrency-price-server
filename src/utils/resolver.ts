@@ -16,22 +16,22 @@ class Resolver {
   }
 
   public fail<TError extends Error = ErrorObject>(
+    err = defaultErrorObject,
     errorCode = 10001,
-    msg = 'fail',
-    err = defaultErrorObject
+    msg = 'fail'
   ): ErrorResponse<TError> {
     return {
+      err,
       errorCode,
       msg,
-      err,
     }
   }
 
-  public success<TData extends object = AnyObject>(msg = 'success', code = 200, data?: TData): SuccessResponse<TData> {
+  public success<TData extends object = AnyObject>(data: TData, msg = 'success', code = 200): SuccessResponse<TData> {
     return {
+      data,
       msg,
       code,
-      data,
     }
   }
 
