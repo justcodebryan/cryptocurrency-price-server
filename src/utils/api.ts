@@ -8,6 +8,4 @@ export const loadSubRouterList = (rootRouter: Router, subRouterList: Router[]) =
   for (const subRouter of subRouterList) {
     rootRouter.use(subRouter.routes(), subRouter.allowedMethods())
   }
-
-  console.log('[server]: emit all the routers!')
 }
