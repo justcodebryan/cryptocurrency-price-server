@@ -33,7 +33,7 @@ export const runJob = async (job: Function): Promise<void> => {
   }
 
   try {
-    console.log('[redis]: Job is running')
+    // console.log('[redis]: Job is running')
     job()
   } finally {
     await releaseLock()
