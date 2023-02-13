@@ -1,11 +1,8 @@
 import cron from 'cron'
-import cloudApiConfig from '@/configs/cloudApiConfig'
-import fetch from 'node-fetch'
-import redisClient, { runJob } from './redis'
-import { CurrencyQueryString } from '@/types/currency'
 
 // schedule tasks to be run on the server
-export const realtimeSyncScheduleJob = () => {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const runScheduleJob = (cronTime: string, job: Function) => {
   /**
    * constructor(cronTime, onTick, onComplete, start, timezone, context, runOnInit, utcOffset, unrefTimeout) - Of note, the first parameter here can be a JSON object that has the below names and associated types (see examples above).
    *  cronTime - [REQUIRED] - The time to fire off your job. This can be in the form of cron syntax or a JS Date object.
@@ -18,36 +15,5 @@ export const realtimeSyncScheduleJob = () => {
    *  utcOffset - [OPTIONAL] - This allows you to specify the offset of your timezone rather than using the timeZone param. Probably don't use both timeZone and utcOffset together or weird things may happen.
    *  unrefTimeout - [OPTIONAL] - If you have code that keeps the event loop running and want to stop the node process when that finishes regardless of the state of your cronjob, you can do so making use of this parameter. This is off by default and cron will run as if it needs to control the event loop. For more information take a look at timers#timers_timeout_unref from the NodeJS docs.
    */
-  new cron.CronJob(
-    '*/10 * * * * *',
-    async () => {
-      const fetchCurrencyData = () => {
-        console.log('---------------------')
-        console.log('Running Cron Job')
-        fetch(`${cloudApiConfig.url}/v1/assets?filter_asset_id=${CurrencyQueryString}`, {
-          method: 'GET',
-          headers: {
-            'X-CoinAPI-Key': cloudApiConfig.apiKey,
-          },
-        })
-          .then(function (res) {
-            return res.json()
-          })
-          .then(function (res) {
-            if (res && res['error']) throw new Error('Too many requests')
-
-            const currencyArr = res.map((coin) => [coin.asset_id, JSON.stringify(coin)])
-            redisClient.mset(new Map([...currencyArr]))
-          })
-          .catch(function (err) {
-            console.log(err)
-          })
-      }
-
-      await runJob(fetchCurrencyData)
-    },
-    null /* onComplete */,
-    true,
-    'Asia/Shanghai'
-  )
+  new cron.CronJob(cronTime, job, null /* onComplete */, true, 'Asia/Shanghai')
 }

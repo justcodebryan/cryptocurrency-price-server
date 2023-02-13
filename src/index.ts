@@ -2,12 +2,13 @@ require('module-alias/register')
 
 import Koa from 'koa'
 import siteConfig from './configs/siteConfig'
-import { DEFAULT_PORT } from './utils/constants'
+import { DEFAULT_CRON_TIME, DEFAULT_PORT } from './utils/constants'
 import initRouter from './core/initRouter'
 import initMiddleware from './core/initMiddleware'
 import initCore from './core/initCore'
+import CurrencyService from '@/services/currency'
 
-import { realtimeSyncScheduleJob } from './utils/schedule'
+import { runScheduleJob } from './utils/schedule'
 
 const port = Number(siteConfig.port) || DEFAULT_PORT
 
@@ -18,4 +19,4 @@ initRouter(app)
 
 initCore(app, port)
 
-realtimeSyncScheduleJob()
+runScheduleJob(DEFAULT_CRON_TIME, CurrencyService.getCurrencyData)
