@@ -11,6 +11,12 @@ declare global {
       DB_PASSWORD?: string
       DB_PORT?: string
 
+      REDIS_PORT?: string
+      REDIS_HOST?: string
+
+      CLOUD_API?: string
+      CLOUD_API_KEY?: string
+
       // more environment variables coming...
     }
   }

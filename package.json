@@ -24,6 +24,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cron": "^2.2.0",
     "dotenv": "^16.0.3",
     "ioredis": "^5.3.1",
     "koa": "^2.14.1",
@@ -32,9 +33,9 @@
     "koa-router": "^12.0.0",
     "koa2-cors": "^2.0.6",
     "module-alias": "^2.2.2",
+    "node-fetch": "^2.6.1",
     "node-schedule": "^2.1.1",
-    "rimraf": "^4.1.1",
-    "sequelize": "^6.28.0"
+    "rimraf": "^4.1.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
