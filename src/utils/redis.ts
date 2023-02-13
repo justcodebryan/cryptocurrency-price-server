@@ -15,7 +15,7 @@ const lockKey = 'cryptocurrency_price_server_lock_key'
 const lockTtl = 15000 // time to live for the lock in milliseconds
 
 const acquireLock = async (): Promise<boolean> => {
-  const lockValue = Math.random().toString(36).substring(2, 15)
+  const lockValue = 'cryptocurrency_price_server_lock_value:202302'
   const result = await redis.set(lockKey, lockValue, 'PX', lockTtl, 'NX')
   return result === 'OK'
 }
