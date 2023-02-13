@@ -16,4 +16,4 @@ class CurrencyService {
   }
 }
 
-export default CurrencyService
+export default new CurrencyService()
