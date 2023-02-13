@@ -13,6 +13,7 @@ specifiers:
   '@types/node': ^18.11.18
   '@typescript-eslint/eslint-plugin': ^5.48.2
   '@typescript-eslint/parser': ^5.48.2
+  cron: ^2.2.0
   dotenv: ^16.0.3
   eslint: ^8.32.0
   eslint-config-prettier: ^8.6.0
@@ -27,15 +28,18 @@ specifiers:
   koa2-cors: ^2.0.6
   lint-staged: ^13.1.0
   module-alias: ^2.2.2
+  node-fetch: ^2.6.1
   node-schedule: ^2.1.1
   nodemon: ^2.0.20
   prettier: ^2.8.3
+  redlock: 5.0.0-beta.2
   rimraf: ^4.1.1
   sequelize: ^6.28.0
   ts-node: ^10.9.1
   typescript: ^4.9.4
 
 dependencies:
+  cron: 2.2.0
   dotenv: 16.0.3
   ioredis: 5.3.1
   koa: 2.14.1
@@ -44,7 +48,9 @@ dependencies:
   koa-router: 12.0.0
   koa2-cors: 2.0.6
   module-alias: 2.2.2
+  node-fetch: 2.6.1
   node-schedule: 2.1.1
+  redlock: 5.0.0-beta.2
   rimraf: 4.1.2
   sequelize: 6.28.0
 
@@ -1050,6 +1056,12 @@ packages:
   /cron-parser/4.7.1:
     resolution: {integrity: sha512-WguFaoQ0hQ61SgsCZLHUcNbAvlK0lypKXu62ARguefYmjzaOXIVRNrAmyXzabTwUn4sQvQLkk6bjH+ipGfw8bA==}
     engines: {node: '>=12.0.0'}
+    dependencies:
+      luxon: 3.2.1
+    dev: false
+
+  /cron/2.2.0:
+    resolution: {integrity: sha512-GPiI3OgMv83XRtEUc2gUdaLvJhO3XbLN288layOBkDTupg0RK5IECNGpkykIMHg+muVR2bxt29b0xvCAcBrjYQ==}
     dependencies:
       luxon: 3.2.1
     dev: false
@@ -2281,6 +2293,15 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
+  /node-abort-controller/3.1.1:
+    resolution: {integrity: sha512-AGK2yQKIjRuqnc6VkX2Xj5d+QW8xZ87pa1UK6yA6ouUyuxfHuMP6umE5QK7UmTeOAymo+Zx1Fxiuw9rVx8taHQ==}
+    dev: false
+
+  /node-fetch/2.6.1:
+    resolution: {integrity: sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==}
+    engines: {node: 4.x || >=6.0.0}
+    dev: false
+
   /node-schedule/2.1.1:
     resolution: {integrity: sha512-OXdegQq03OmXEjt2hZP33W2YPs/E5BcFQks46+G2gAxs4gHOIVD1u7EqlYLYSKsaIpyKCK9Gbk0ta1/gjRSMRQ==}
     engines: {node: '>=6'}
@@ -2623,6 +2644,13 @@ packages:
     engines: {node: '>=4'}
     dependencies:
       redis-errors: 1.2.0
+    dev: false
+
+  /redlock/5.0.0-beta.2:
+    resolution: {integrity: sha512-2RDWXg5jgRptDrB1w9O/JgSZC0j7y4SlaXnor93H/UJm/QyDiFgBKNtrh0TI6oCXqYSaSoXxFh6Sd3VtYfhRXw==}
+    engines: {node: '>=12'}
+    dependencies:
+      node-abort-controller: 3.1.1
     dev: false
 
   /regexpp/3.2.0:

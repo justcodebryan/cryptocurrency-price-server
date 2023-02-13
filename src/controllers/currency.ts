@@ -1,5 +1,4 @@
 import CurrencyService from '@/services/currency'
-import Pagination from '@/utils/pagination'
 import resolver from '@/utils/resolver'
 import type { Context } from 'koa'
 
@@ -10,22 +9,15 @@ export const getUserList = async (ctx: Context) => {
     request: { query },
   } = ctx
 
-  const { current, page_size } = query
+  const { filter_assets_id } = query
 
-  const total = await service.getCurrencyTotal()
-  const page = Number(current)
-  const pageSize = Number(page_size)
+  const assetIdList = (filter_assets_id as string).split(';')
 
-  const pagination = new Pagination(page, pageSize, total)
+  const res = await service.getCurrencyInfo(assetIdList)
 
-  const result = await service.getCurrencyList(pagination.startIndex, pagination.endIndex)
-
-  const redisRes = await service.getCurrencyTest()
-
-  console.log(redisRes)
-
-  ctx.body = resolver.success({
-    items: result,
-    total,
+  const result = res.map((str) => {
+    return JSON.parse(str)
   })
+
+  ctx.body = resolver.success(result)
 }

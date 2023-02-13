@@ -27,7 +27,11 @@ class Resolver {
     }
   }
 
-  public success<TData extends object = AnyObject>(data: TData, msg = 'success', code = 200): SuccessResponse<TData> {
+  public success<TData extends object | Array<object | string | number> = AnyObject>(
+    data?: TData,
+    msg = 'success',
+    code = 200
+  ): SuccessResponse<TData> {
     return {
       data,
       msg,
