@@ -36,8 +36,7 @@
     "node-fetch": "^2.6.1",
     "node-schedule": "^2.1.1",
     "redlock": "5.0.0-beta.2",
-    "rimraf": "^4.1.1",
-    "sequelize": "^6.28.0"
+    "rimraf": "^4.1.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
