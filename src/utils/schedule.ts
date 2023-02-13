@@ -19,7 +19,7 @@ export const realtimeSyncScheduleJob = () => {
    *  unrefTimeout - [OPTIONAL] - If you have code that keeps the event loop running and want to stop the node process when that finishes regardless of the state of your cronjob, you can do so making use of this parameter. This is off by default and cron will run as if it needs to control the event loop. For more information take a look at timers#timers_timeout_unref from the NodeJS docs.
    */
   new cron.CronJob(
-    '*/3 * * * * *',
+    '*/10 * * * * *',
     async () => {
       const fetchCurrencyData = () => {
         console.log('---------------------')

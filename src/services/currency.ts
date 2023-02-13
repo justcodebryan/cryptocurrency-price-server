@@ -1,8 +1,7 @@
-import Redis from 'ioredis'
+import redis from '@/utils/redis'
 
 class CurrencyService {
   async getCurrencyInfo(assetIdList: string[]) {
-    const redis = new Redis()
     return new Promise<string[]>((resolve, reject) => {
       redis
         .mget(assetIdList || [])
