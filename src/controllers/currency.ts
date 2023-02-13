@@ -3,8 +3,6 @@ import resolver from '@/utils/resolver'
 import type { Context } from 'koa'
 
 export const getUserList = async (ctx: Context) => {
-  const service = new CurrencyService()
-
   const {
     request: { query },
   } = ctx
@@ -13,7 +11,7 @@ export const getUserList = async (ctx: Context) => {
 
   const assetIdList = (filter_assets_id as string).split(';')
 
-  const res = await service.getCurrencyInfo(assetIdList)
+  const res = await CurrencyService.getCurrencyInfo(assetIdList)
 
   const result = res.map((str) => {
     return JSON.parse(str)

@@ -12,7 +12,7 @@ const redis = new Redis({
 export default redis
 
 const lockKey = 'cryptocurrency_price_server_lock_key'
-const lockTtl = 1000 // time to live for the lock in milliseconds
+const lockTtl = 15000 // time to live for the lock in milliseconds
 
 const acquireLock = async (): Promise<boolean> => {
   const lockValue = Math.random().toString(36).substring(2, 15)

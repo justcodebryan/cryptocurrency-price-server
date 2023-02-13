@@ -13,7 +13,6 @@ specifiers:
   '@types/node': ^18.11.18
   '@typescript-eslint/eslint-plugin': ^5.48.2
   '@typescript-eslint/parser': ^5.48.2
-  cron: ^2.2.0
   dotenv: ^16.0.3
   eslint: ^8.32.0
   eslint-config-prettier: ^8.6.0
@@ -28,6 +27,7 @@ specifiers:
   koa2-cors: ^2.0.6
   lint-staged: ^13.1.0
   module-alias: ^2.2.2
+  node-cron: ^3.0.2
   node-fetch: ^2.6.1
   node-schedule: ^2.1.1
   nodemon: ^2.0.20
@@ -37,7 +37,6 @@ specifiers:
   typescript: ^4.9.4
 
 dependencies:
-  cron: 2.2.0
   dotenv: 16.0.3
   ioredis: 5.3.1
   koa: 2.14.1
@@ -46,6 +45,7 @@ dependencies:
   koa-router: 12.0.0
   koa2-cors: 2.0.6
   module-alias: 2.2.2
+  node-cron: 3.0.2
   node-fetch: 2.6.1
   node-schedule: 2.1.1
   rimraf: 4.1.2
@@ -1039,12 +1039,6 @@ packages:
   /cron-parser/4.7.1:
     resolution: {integrity: sha512-WguFaoQ0hQ61SgsCZLHUcNbAvlK0lypKXu62ARguefYmjzaOXIVRNrAmyXzabTwUn4sQvQLkk6bjH+ipGfw8bA==}
     engines: {node: '>=12.0.0'}
-    dependencies:
-      luxon: 3.2.1
-    dev: false
-
-  /cron/2.2.0:
-    resolution: {integrity: sha512-GPiI3OgMv83XRtEUc2gUdaLvJhO3XbLN288layOBkDTupg0RK5IECNGpkykIMHg+muVR2bxt29b0xvCAcBrjYQ==}
     dependencies:
       luxon: 3.2.1
     dev: false
@@ -2259,6 +2253,13 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
+  /node-cron/3.0.2:
+    resolution: {integrity: sha512-iP8l0yGlNpE0e6q1o185yOApANRe47UPbLf4YxfbiNHt/RU5eBcGB/e0oudruheSf+LQeDMezqC5BVAb5wwRcQ==}
+    engines: {node: '>=6.0.0'}
+    dependencies:
+      uuid: 8.3.2
+    dev: false
+
   /node-fetch/2.6.1:
     resolution: {integrity: sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==}
     engines: {node: 4.x || >=6.0.0}
@@ -3073,6 +3074,11 @@ packages:
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: true
+
+  /uuid/8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
+    dev: false
 
   /v8-compile-cache-lib/3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
