@@ -18,3 +18,19 @@ export type Currency = {
 }
 
 export type CurrencyRequestData = Partial<Currency>
+
+export enum CoinEnum {
+  BitCoin = 'BTC',
+  Ether = 'ETH',
+  LiteCoin = 'LTC',
+  Monero = 'XMR',
+  Ripple = 'XRP',
+  DogeCoin = 'DOGE',
+  Dash = 'DASH',
+}
+
+export const CurrencyQueryString = Object.keys(CoinEnum)
+  .map((key) => {
+    return CoinEnum[key]
+  })
+  .join(';')

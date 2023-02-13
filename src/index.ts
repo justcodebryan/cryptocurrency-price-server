@@ -2,17 +2,12 @@ require('module-alias/register')
 
 import Koa from 'koa'
 import siteConfig from './configs/siteConfig'
-import * as dotenv from 'dotenv'
 import { DEFAULT_PORT } from './utils/constants'
 import initRouter from './core/initRouter'
 import initMiddleware from './core/initMiddleware'
 import initCore from './core/initCore'
 
-// import { realtimeSyncScheduleJob } from './utils/schedule'
-
-// import module-alias to use module alias
-// Load corresponding config from dotenv file
-dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
+import { realtimeSyncScheduleJob } from './utils/schedule'
 
 const port = Number(siteConfig.port) || DEFAULT_PORT
 
@@ -23,4 +18,4 @@ initRouter(app)
 
 initCore(app, port)
 
-// realtimeSyncScheduleJob()
+realtimeSyncScheduleJob()
