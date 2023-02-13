@@ -18,7 +18,7 @@ class CurrencyService {
     })
   }
 
-  async getCurrencyData() {
+  async getCloudAPICurrencyData() {
     const fetchCurrencyData = () => {
       console.log('---------------------')
       console.log('Running Cron Job')

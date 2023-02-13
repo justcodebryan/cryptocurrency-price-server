@@ -19,4 +19,4 @@ initRouter(app)
 
 initCore(app, port)
 
-runScheduleJob(DEFAULT_CRON_TIME, CurrencyService.getCurrencyData)
+runScheduleJob(DEFAULT_CRON_TIME, CurrencyService.getCloudAPICurrencyData)
