@@ -14,47 +14,83 @@ To minimize the times of api calls, we need to avoid the frontend requests the c
 
 But the api need to show the realtime price of each cryptocurrency, we have to update the data in our database periodically.
 
-So using the [Redis](https://redis.io/) to act as cache, and the server will request the latest data from [coinapi.io](https://docs.coinapi.io/) every **10 seconds** by running Linux **crontab** order.
+So using the [Redis](https://redis.io/) to act as cache, and the server will request the latest data from [coinapi.io](https://docs.coinapi.io/) every **30 seconds** by using **node-cron**. Because the server needs to provide service for millions of users, it need to use distribution cache and here we use the redis and the redis distribution lock to promise there is only one server to refresh the latest data if the cache of the redis is outdated.
 
 The frontend request will go to this backend directly and we can modify the raw data from cloud api to fulfill our requirement.
 
 ### System Flow
 
+#### System Design
+
 ```plantuml
 @startuml
 actor user
 interface frontend
-node backend
-database redis
+frame backend {
+  portin api
+  node server1
+  node server2
+  portout db_connection
+  portout node_fetch
+}
+frame storage {
+  database redis
+}
 cloud cloud
 
 user --> frontend
-frontend --> backend
-backend --> redis
-backend --> cloud
-redis --> cloud
+frontend --> api
+api --> frontend
+db_connection --> storage: acquired lock and write
+storage --> db_connection: get
+node_fetch --> cloud: request
+cloud --> node_fetch: response
 
 @enduml
 ```
 
-| Variable             | Description                                                                                |
+#### System Workflow
+
+**Redis Distribution Lock**
+
+```plantuml
+@startuml
+(*) --> "Cache Outdated"
+
+if "Acquired Redis Distribution Lock" then
+  -->[true] "Fetch Data from Cloud API"
+  --> "Update the key and value in Redis"
+  -right-> (*)
+else
+  ->[false] "Return the cached data stored in Redis"
+  --> (*)
+endif
+
+@enduml
+```
+
+#### Key-Value Map
+
+**Key**: asset_id
+**Value**: The server will JSON stringify object that has the following properties and store it in Redis.
+| Variable | Description |
 | -------------------- | ------------------------------------------------------------------------------------------ |
-| asset_id             | Our asset identifier. Superset of the ISO 4217 currency codes standard.                    |
-| name                 | Display name of the asset.                                                                 |
-| type_is_crypto       | Boolean value transported as integer; `1` for cryptocurrency assets, `0` otherwise.        |
-| data_quote_start     | The date and time of first quote.                                                          |
-| data_quote_end       | The date and time for last quote.                                                          |
-| data_orderbook_start | The date and time for first order book.                                                    |
-| data_orderbook_end   | The date and time for last order book.                                                     |
-| data_trade_start     | The date and time for first trade.                                                         |
-| data_trade_end       | The date and time for last trade.                                                          |
-| data_quote_count     | The count of quotes.                                                                       |
-| data_trade_count     | The count of trades.                                                                       |
-| data_symbols_count   | The count of symbols for given asset.                                                      |
-| volume_1hrs_usd      | The usd volume of all symbols associated with this asset from last 1 hour rolling period.  |
-| volume_1day_usd      | The usd volume of all symbols associated with this asset from last 1 day rolling period.   |
-| volume_1mth_usd      | The usd volume of all symbols associated with this asset from last 1 month rolling period. |
-| price_usd            | The actual usd price.                                                                      |
+| asset_id | Our asset identifier. Superset of the ISO 4217 currency codes standard. |
+| name | Display name of the asset. |
+| type_is_crypto | Boolean value transported as integer; `1` for cryptocurrency assets, `0` otherwise. |
+| data_quote_start | The date and time of first quote. |
+| data_quote_end | The date and time for last quote. |
+| data_orderbook_start | The date and time for first order book. |
+| data_orderbook_end | The date and time for last order book. |
+| data_trade_start | The date and time for first trade. |
+| data_trade_end | The date and time for last trade. |
+| data_quote_count | The count of quotes. |
+| data_trade_count | The count of trades. |
+| data_symbols_count | The count of symbols for given asset. |
+| volume_1hrs_usd | The usd volume of all symbols associated with this asset from last 1 hour rolling period. |
+| volume_1day_usd | The usd volume of all symbols associated with this asset from last 1 day rolling period. |
+| volume_1mth_usd | The usd volume of all symbols associated with this asset from last 1 month rolling period. |
+| price_usd | The actual usd price. |
 
 ## Folder Structure
 
