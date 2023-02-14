@@ -3,7 +3,7 @@ import resolver from '@/utils/resolver'
 
 const requestCount = {}
 
-const rateLimitMiddleware = (ctx, next) => {
+const rateLimiter = (ctx, next) => {
   const clientIp = ctx.request.ip
 
   if (!requestCount[clientIp]) {
@@ -28,4 +28,4 @@ const rateLimitMiddleware = (ctx, next) => {
   }
 }
 
-export default rateLimitMiddleware
+export default rateLimiter

@@ -1,11 +1,11 @@
 import * as CurrencyController from '@/controllers/currency'
-import rateLimitMiddleware from '@/middlewares/limitMiddleware'
+import rateLimiter from '@/utils/rateLimiter'
 import Router from 'koa-router'
 
 const router = new Router({
   prefix: '/currency',
 })
 
-router.get('/', rateLimitMiddleware, CurrencyController.getUserList)
+router.get('/', rateLimiter, CurrencyController.getUserList)
 
 export default router
