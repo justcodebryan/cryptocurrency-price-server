@@ -8,8 +8,13 @@ const rateLimiter = (ctx, next) => {
 
   if (!requestCount[clientIp]) {
     requestCount[clientIp] = 1
-  } else {
+  } else if (requestCount[clientIp] <= 100) {
     requestCount[clientIp]++
+  } else {
+    // exceed the limit, return the result after 20 seconds.
+    setTimeout(() => {
+      requestCount[clientIp] = 0
+    }, 20 * 1000)
   }
 
   if (requestCount[clientIp] > 100) {
@@ -18,7 +23,7 @@ const rateLimiter = (ctx, next) => {
     ctx.body = resolver.fail(
       {
         name: errorMsg,
-        message: errorMsg,
+        message: `${errorMsg}`,
       },
       errorCode,
       errorMsg
