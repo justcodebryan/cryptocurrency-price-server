@@ -23,6 +23,14 @@ describe('GET /api/v1/currency', () => {
     expect(response.body.data).toHaveLength(0)
   })
 
+  test('Currency GET / with wrong querystring', async () => {
+    const response = await request(server).get(`/api/v1/currency/`).query('jkjdkal')
+    expect(response.status).toBe(200)
+    expect(response.body.code).toBe(200)
+    expect(response.body.msg).toBe('success')
+    expect(response.body.data).toHaveLength(0)
+  })
+
   afterAll((done) => {
     job.stop()
     redis.quit()

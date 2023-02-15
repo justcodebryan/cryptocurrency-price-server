@@ -1,3 +1,5 @@
+// Prepare for pagination
+// Work In Progress
 export default class Pagination {
   page: number
   pageSize: number

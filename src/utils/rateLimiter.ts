@@ -6,6 +6,7 @@ const requestCount = {}
 const rateLimiter = (ctx, next) => {
   const clientIp = ctx.request.ip
 
+  // can be stored in redis to avoid OOM problem
   if (!requestCount[clientIp]) {
     requestCount[clientIp] = 1
   } else if (requestCount[clientIp] <= 100) {
@@ -14,7 +15,7 @@ const rateLimiter = (ctx, next) => {
     // exceed the limit, return the result after 20 seconds.
     setTimeout(() => {
       requestCount[clientIp] = 0
-    }, 20 * 1000)
+    }, 10 * 1000)
   }
 
   if (requestCount[clientIp] > 100) {
