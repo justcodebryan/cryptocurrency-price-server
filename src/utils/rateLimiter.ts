@@ -3,13 +3,19 @@ import resolver from '@/utils/resolver'
 
 const requestCount = {}
 
-const rateLimitMiddleware = (ctx, next) => {
+const rateLimiter = (ctx, next) => {
   const clientIp = ctx.request.ip
 
+  // can be stored in redis to avoid OOM problem
   if (!requestCount[clientIp]) {
     requestCount[clientIp] = 1
-  } else {
+  } else if (requestCount[clientIp] <= 100) {
     requestCount[clientIp]++
+  } else {
+    // exceed the limit, return the result after 20 seconds.
+    setTimeout(() => {
+      requestCount[clientIp] = 0
+    }, 10 * 1000)
   }
 
   if (requestCount[clientIp] > 100) {
@@ -18,7 +24,7 @@ const rateLimitMiddleware = (ctx, next) => {
     ctx.body = resolver.fail(
       {
         name: errorMsg,
-        message: errorMsg,
+        message: `${errorMsg}`,
       },
       errorCode,
       errorMsg
@@ -28,4 +34,4 @@ const rateLimitMiddleware = (ctx, next) => {
   }
 }
 
-export default rateLimitMiddleware
+export default rateLimiter
