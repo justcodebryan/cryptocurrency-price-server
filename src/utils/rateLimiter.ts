@@ -1,9 +1,10 @@
 import { ErrorCodeEnum, getErrorException } from '@/configs/exceptionConfig'
 import resolver from '@/utils/resolver'
+import type Router from 'koa-router'
 
 const requestCount = {}
 
-const rateLimiter = (ctx, next) => {
+const rateLimiter: Router.IMiddleware = (ctx, next) => {
   const clientIp = ctx.request.ip
 
   // can be stored in redis to avoid OOM problem
