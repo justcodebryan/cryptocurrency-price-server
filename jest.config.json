@@ -3,8 +3,7 @@
   "collectCoverage": true,
   "collectCoverageFrom": [
     "src/controllers/*.{ts,js}",
-    "src/utils/*.{ts,js}",
-    "!src/utils/pagination.ts",
+    "!src/utils/*.{ts,js}",
     "!**/node_modules/**",
     "!**/build/**",
     "!**/coverage/**"
