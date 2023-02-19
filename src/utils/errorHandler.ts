@@ -2,7 +2,7 @@ import { ErrorCodeEnum, getErrorException } from '@/configs/exceptionConfig'
 import type Koa from 'koa'
 import resolver from './resolver'
 
-export const errorHandler = () => {
+const errorHandler = () => {
   return async function async(ctx: Koa.Context, next: () => Promise<any>) {
     try {
       await next()
@@ -18,3 +18,5 @@ export const errorHandler = () => {
     }
   }
 }
+
+export default errorHandler
